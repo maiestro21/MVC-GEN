@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: Demo1ProjectTest1v1
+  description: This is a sample server for a cutie marks catalog.
+  version: 1.0.1
+models:
+  users:
+    id_users:
+      type: int
+      autoincrement: True
+      primary_key: True
+      nullable: False
+    user_name:
+      type: string
+      nullable: False
+      default: "'string_default'"
+    user_email:
+      type: string
+      nullable: True
+      unique: True
+    active:
+      type: int
+      nullable: False
+      default: "1"
+  groups:
+    id_groups:
+      type: int
+      autoincrement: True
+      primary_key: True
+      nullable: False
+    group_name:
+      type: string
+      nullable: False
+  user_group_corelation:
+      id_user_group_corelation:
+        type: int
+        nullable: False
+      id_group_g:
+        type: int
+        nullable: False
