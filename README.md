@@ -12,6 +12,10 @@ pip install -r requirements.txt
 
 ## Usage
 
+1. Edit the config.cfg files and enter the Databse connection details.
+2. Edit the demo.yaml file - similar to openAPI - with your own models and parameters. Please pay attention to the identation format.
+
+3. Run it:
 ```python
 pyhton main.py
 ```
