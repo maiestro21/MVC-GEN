@@ -1,0 +1,4 @@
+  @@controller_name@@:
+    description: Object
+    properties:
+@@element_properties@@

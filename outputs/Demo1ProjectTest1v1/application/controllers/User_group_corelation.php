@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class User_group_corelation extends CI_Controller {
 
 	function __construct(){

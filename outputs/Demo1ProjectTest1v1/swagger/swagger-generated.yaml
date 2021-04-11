@@ -1,0 +1,232 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Demo1ProjectTest1v1"
+host: "127.0.0.1"
+basePath: "/"
+schemes:
+- "https"
+- "http"
+paths:
+  /users/get_all:
+    get:
+      tags:
+      - "users"
+      summary: "Retrive all users"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+  /users/get/{id_users}:
+    get:
+      tags:
+      - "users"
+      summary: "Finds users by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_users"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+  /users/add/:
+    post:
+      tags:
+      - "users"
+      summary: "Add a new users"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: users
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/users'
+      responses:
+        "200":
+          description: "OK"
+ 
+  /users/delete/{id_users}:
+    delete:
+      tags:
+      - "users"
+      summary: "Delete users by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_users"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+  /groups/get_all:
+    get:
+      tags:
+      - "groups"
+      summary: "Retrive all groups"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+  /groups/get/{id_groups}:
+    get:
+      tags:
+      - "groups"
+      summary: "Finds groups by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_groups"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+  /groups/add/:
+    post:
+      tags:
+      - "groups"
+      summary: "Add a new groups"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: groups
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/groups'
+      responses:
+        "200":
+          description: "OK"
+ 
+  /groups/delete/{id_groups}:
+    delete:
+      tags:
+      - "groups"
+      summary: "Delete groups by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_groups"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+  /user_group_corelation/get_all:
+    get:
+      tags:
+      - "user_group_corelation"
+      summary: "Retrive all user_group_corelation"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+  /user_group_corelation/get/{id_user_group_corelation}:
+    get:
+      tags:
+      - "user_group_corelation"
+      summary: "Finds user_group_corelation by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_user_group_corelation"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+  /user_group_corelation/add/:
+    post:
+      tags:
+      - "user_group_corelation"
+      summary: "Add a new user_group_corelation"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: user_group_corelation
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/user_group_corelation'
+      responses:
+        "200":
+          description: "OK"
+ 
+  /user_group_corelation/delete/{id_user_group_corelation}:
+    delete:
+      tags:
+      - "user_group_corelation"
+      summary: "Delete user_group_corelation by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_user_group_corelation"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
+
+definitions:
+  users:
+    description: Object
+    properties:
+      user_name:
+        type: string
+      user_email:
+        type: string
+      active:
+        type: integer
+
+  groups:
+    description: Object
+    properties:
+      group_name:
+        type: string
+
+  user_group_corelation:
+    description: Object
+    properties:
+      id_group_g:
+        type: integer
+
