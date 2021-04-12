@@ -243,21 +243,19 @@ with open(file_yaml) as stream:
                         f = open(project_path+"/generator_templates/swagger_templates/element_properties.yaml",'r')
                         elem_prop_stock = f.read()
                         f.close()
-                    
-                     
+
                             
                         for model in yml_data["models"]:
                             
-                            helper = yml_data["models"][model]
                             element_aux = element_stock
                             element_aux = element_aux.replace("@@controller_name@@",model)
                             elem_definitions = elem_definitions_stock
                             elem_definitions = elem_definitions.replace("@@controller_name@@",model)
                             prop_final = ""
-                            x = 0
+
                             for prop in yml_data["models"][model]:
                                 strcomp = "id_"+model
-                                if prop != strcomp:##SA NU FIE ID ul
+                                if prop != strcomp:##removing the first param: ID.
                                     param_aux = elem_prop_stock
                                     param_aux = param_aux.replace("@@prop_name@@",prop)
                                     if(yml_data["models"][model][prop]["type"] == "int"):
@@ -271,12 +269,11 @@ with open(file_yaml) as stream:
                                     prop_final = prop_final + param_aux + "\n"
                                 
                             elem_definitions = elem_definitions.replace("@@element_properties@@",prop_final)
-                            #element_aux = element_aux.replace("@@element_properties@@",prop_final)
+                            
                             definitions = definitions + elem_definitions + "\n"
                             element_final = element_final + element_aux + "\n"
                            
                         
-
                         f = open(project_path+"/swagger/swagger-generated.yaml",'w')
                         f.write(baseline + "\n" + element_final + "\n" + definitions)
                         f.close()
