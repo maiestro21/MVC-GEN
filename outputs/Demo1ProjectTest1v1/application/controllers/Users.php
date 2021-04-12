@@ -14,7 +14,7 @@ class Users extends CI_Controller {
 		$this->load->view('users_view.php');
 	}
 	
-	//GET ALL
+	//[GET] - ALL
 	public function get_all(){
 		header('Content-Type: application/json');
 		if ($this->input->server('REQUEST_METHOD') === 'GET') {
@@ -28,7 +28,7 @@ class Users extends CI_Controller {
 
 	}
 
-	//GET BY ID
+	//[GET] - ONE BY ID
 	public function get($id){
 		header('Content-Type: application/json');
 		if ($this->input->server('REQUEST_METHOD') === 'GET') {
@@ -40,7 +40,7 @@ class Users extends CI_Controller {
 
 	}
 	
-	//POST
+	//[POST] - ADD NEW ENTRY
 	public function add(){
 		header('Content-Type: application/json');
 		if ($this->input->server('REQUEST_METHOD') === 'POST') {
@@ -57,7 +57,7 @@ class Users extends CI_Controller {
 
 	
 	
-	//PUT
+	//[PUT] - UPDATE AN ENTRY
 	public function update($id){
 		header('Content-Type: application/json');
 		if ($this->input->server('REQUEST_METHOD') === 'PUT') {
@@ -114,7 +114,7 @@ class Users extends CI_Controller {
 		}	
 	}
 	
-	//DELETE
+	//[DELETE] - DELETE AN ENTRY
 	public function delete($id){
 		header('Content-Type: application/json');
 		if ($this->input->server('REQUEST_METHOD') === 'DELETE') {

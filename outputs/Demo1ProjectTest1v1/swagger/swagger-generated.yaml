@@ -55,7 +55,32 @@ paths:
       responses:
         "200":
           description: "OK"
- 
+  /users/update/{id_users}:
+    put:
+      tags:
+      - "users"
+      summary: "Update users by ID"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_users"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      - name: users
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/users'
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
   /users/delete/{id_users}:
     delete:
       tags:
@@ -121,7 +146,32 @@ paths:
       responses:
         "200":
           description: "OK"
- 
+  /groups/update/{id_groups}:
+    put:
+      tags:
+      - "groups"
+      summary: "Update groups by ID"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_groups"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      - name: groups
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/groups'
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
   /groups/delete/{id_groups}:
     delete:
       tags:
@@ -187,7 +237,32 @@ paths:
       responses:
         "200":
           description: "OK"
- 
+  /user_group_corelation/update/{id_user_group_corelation}:
+    put:
+      tags:
+      - "user_group_corelation"
+      summary: "Update user_group_corelation by ID"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_user_group_corelation"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      - name: user_group_corelation
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/user_group_corelation'
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
   /user_group_corelation/delete/{id_user_group_corelation}:
     delete:
       tags:

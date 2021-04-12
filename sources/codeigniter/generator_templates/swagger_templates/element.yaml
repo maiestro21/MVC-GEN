@@ -45,7 +45,32 @@
       responses:
         "200":
           description: "OK"
- 
+  /@@controller_name@@/update/{id_@@controller_name@@}:
+    put:
+      tags:
+      - "@@controller_name@@"
+      summary: "Update @@controller_name@@ by ID"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_@@controller_name@@"
+        in: "path"
+        required: true
+        type: "integer"
+        format: "int"
+      - name: @@controller_name@@
+        in: body
+        description: Object
+        required: true
+        schema:
+          $ref: '#/definitions/@@controller_name@@'
+      responses:
+        "200":
+          description: "OK"
+        "400":
+          description: "Error"
   /@@controller_name@@/delete/{id_@@controller_name@@}:
     delete:
       tags:

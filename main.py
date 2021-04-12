@@ -54,7 +54,10 @@ config.read('config.cfg')
 details_dict = dict(config.items('DATABASE'))
 
 ##read demo yaml fle
-with open("demo.yaml") as stream:
+file_yaml = input("Name of the YAML file [demo.yaml]:")
+if file_yaml == "":
+    file_yaml = "demo.yaml"
+with open(file_yaml) as stream:
     try:
         yml_data = (yaml.safe_load(stream))
         if len(yml_data["models"]) < 1:
