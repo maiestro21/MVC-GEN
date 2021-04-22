@@ -47,7 +47,7 @@ def await_choice_main():
 
 
 show_main_menu()
-
+query = ""
 #### Reading config files ######
 config = configparser.RawConfigParser()
 config.read('config.cfg')
@@ -154,6 +154,12 @@ with open(file_yaml) as stream:
                     print("-------------------------------")
                     print("### CI3 3.1.11 Generating Files")
                     print("-------------------------------")
+
+                    if os.path.isdir("outputs/"+yml_data["info"]["title"]) == True:
+                        print("!! Project path already exists. Cannot override !!")
+                        print("-------------------------------")
+                        print("--> Exiting")
+                        quit()
                     try:
                         shutil.copytree("sources/codeigniter", "outputs/"+yml_data["info"]["title"])  
                         project_path = "outputs/"+yml_data["info"]["title"]
@@ -221,84 +227,119 @@ with open(file_yaml) as stream:
                         print("          MVC generated       ")
                         print("-------------------------------")
                         
-                        #### SWAGGER GENERATOR ####
-                        f = open(project_path+"/generator_templates/swagger_templates/baseline.yaml",'r')
-                        baseline = f.read()
-                        f.close()
-                        baseline = baseline.replace("@@title@@",yml_data["info"]["title"])
-                        baseline = baseline.replace("@@base_url@@",base_url)
-
-                        f = open(project_path+"/generator_templates/swagger_templates/element.yaml",'r')
-                        element_stock = f.read()
-                        f.close()
-                        element_final = ""
-
                         
-                        f = open(project_path+"/generator_templates/swagger_templates/element_definitions.yaml",'r')
-                        elem_definitions_stock = f.read()
-                        f.close()
-                        definitions = "definitions:\n"
 
-                        ##Elem prop
-                        f = open(project_path+"/generator_templates/swagger_templates/element_properties.yaml",'r')
-                        elem_prop_stock = f.read()
-                        f.close()
-
-                            
-                        for model in yml_data["models"]:
-                            
-                            element_aux = element_stock
-                            element_aux = element_aux.replace("@@controller_name@@",model)
-                            elem_definitions = elem_definitions_stock
-                            elem_definitions = elem_definitions.replace("@@controller_name@@",model)
-                            prop_final = ""
-
-                            for prop in yml_data["models"][model]:
-                                strcomp = "id_"+model
-                                if prop != strcomp:##removing the first param: ID.
-                                    param_aux = elem_prop_stock
-                                    param_aux = param_aux.replace("@@prop_name@@",prop)
-                                    if(yml_data["models"][model][prop]["type"] == "int"):
-                                        param_aux = param_aux.replace("@@prop_type@@","integer")
-                                    else:
-                                        param_aux = param_aux.replace("@@prop_type@@",yml_data["models"][model][prop]["type"])
-                                    # if yml_data["models"][model][prop]["nullable"] == False:
-                                    #     param_aux = param_aux.replace("@@required_param@@","true")
-                                    # else:
-                                    #     param_aux = param_aux.replace("@@required_param@@","false")
-                                    prop_final = prop_final + param_aux + "\n"
-                                
-                            elem_definitions = elem_definitions.replace("@@element_properties@@",prop_final)
-                            
-                            definitions = definitions + elem_definitions + "\n"
-                            element_final = element_final + element_aux + "\n"
-                           
-                        
-                        f = open(project_path+"/swagger/swagger-generated.yaml",'w')
-                        f.write(baseline + "\n" + element_final + "\n" + definitions)
-                        f.close()
-
-                        ##WRITING THE SWAGGER FILE FOR ACCESS##
-                        f = open(project_path+"/swagger/index.html",'r')
-                        filedata = f.read()
-                        f.close()
-                        newdata = filedata.replace("@@base_url@@",base_url)
-                        f = open(project_path+"/swagger/index.html",'w')
-                        f.write(newdata)
-                        f.close()
-                        ###---###
-
-                        ###DELETING TEMPLATES FOLDER ####
-                        shutil.rmtree(project_path + "/generator_templates")
-                        #####
-                        print("-> Exiting...")
                     except Exception as e:
                         print(e)
+
                 elif int(type_option) == 2:
-                    print("NodeJS")
+                    print("-------------------------------")
+                    print("### NodeJS 3.1.11 Generating Files")
+                    print("-------------------------------")
+                    # try:
+                    #     shutil.copytree("sources/codeigniter", "outputs/"+yml_data["info"]["title"])  
+                    #     project_path = "outputs/"+yml_data["info"]["title"]
+                    # except Exception as e:
+                    #     print(e)
+
                 elif int(type_option) == 3:
                     print("Flask")
 
+
+                #########################################
+                ##### END OF DIFFERENT LANGUAGES #####
+                ######
+                ###
+                ##
+                #
+                project_path = "outputs/"+yml_data["info"]["title"]
+
+                #### GENERATE SQL FILE  ###
+                file_sql = open(project_path+"/sql_generate.sql", "a")
+                file_sql.write(query)
+                file_sql.close()
+                print("-------------------------------")
+                print("###  sql_generated.sql #### ")
+                print("-------------------------------")
+
+                ##WRITING THE SWAGGER FILE FOR ACCESS##
+                #### SWAGGER GENERATOR ####
+                try:
+                    f = open(project_path+"/generator_templates/swagger_templates/baseline.yaml",'r')
+                    baseline = f.read()
+                    f.close()
+                    baseline = baseline.replace("@@title@@",yml_data["info"]["title"])
+                    baseline = baseline.replace("@@base_url@@",base_url)
+
+                    f = open(project_path+"/generator_templates/swagger_templates/element.yaml",'r')
+                    element_stock = f.read()
+                    f.close()
+                    element_final = ""
+
+                    
+                    f = open(project_path+"/generator_templates/swagger_templates/element_definitions.yaml",'r')
+                    elem_definitions_stock = f.read()
+                    f.close()
+                    definitions = "definitions:\n"
+
+                    ##Elem prop
+                    f = open(project_path+"/generator_templates/swagger_templates/element_properties.yaml",'r')
+                    elem_prop_stock = f.read()
+                    f.close()
+
+                        
+                    for model in yml_data["models"]:
+                        
+                        element_aux = element_stock
+                        element_aux = element_aux.replace("@@controller_name@@",model)
+                        elem_definitions = elem_definitions_stock
+                        elem_definitions = elem_definitions.replace("@@controller_name@@",model)
+                        prop_final = ""
+
+                        for prop in yml_data["models"][model]:
+                            strcomp = "id_"+model
+                            if prop != strcomp:##removing the first param: ID.
+                                param_aux = elem_prop_stock
+                                param_aux = param_aux.replace("@@prop_name@@",prop)
+                                if(yml_data["models"][model][prop]["type"] == "int"):
+                                    param_aux = param_aux.replace("@@prop_type@@","integer")
+                                else:
+                                    param_aux = param_aux.replace("@@prop_type@@",yml_data["models"][model][prop]["type"])
+                                # if yml_data["models"][model][prop]["nullable"] == False:
+                                #     param_aux = param_aux.replace("@@required_param@@","true")
+                                # else:
+                                #     param_aux = param_aux.replace("@@required_param@@","false")
+                                prop_final = prop_final + param_aux + "\n"
+                            
+                        elem_definitions = elem_definitions.replace("@@element_properties@@",prop_final)
+                        
+                        definitions = definitions + elem_definitions + "\n"
+                        element_final = element_final + element_aux + "\n"
+                        
+                    
+                    f = open(project_path+"/swagger/swagger-generated.yaml",'w')
+                    f.write(baseline + "\n" + element_final + "\n" + definitions)
+                    f.close()
+                    f = open("outputs/"+yml_data["info"]["title"]+"/swagger/index.html",'r')
+                    filedata = f.read()
+                    f.close()
+                    newdata = filedata.replace("@@base_url@@",base_url)
+                    f = open("outputs/"+yml_data["info"]["title"]+"/swagger/index.html",'w')
+                    f.write(newdata)
+                    f.close()
+                    ###---###
+                except Exception as e:
+                    print(e)
+
+                ###DELETING TEMPLATES FOLDER ####
+                shutil.rmtree(project_path + "/generator_templates")
+                #####
+                print("-------------------------------")
+                print("###  Swagger generated  #### ")
+                print("-------------------------------")
+
+
+                print("-> Exiting...")
 
             except mysql.connector.Error as err:
                 print(err)
