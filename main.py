@@ -144,6 +144,15 @@ with open(file_yaml) as stream:
                         print("-------------------------------")
                         print("###    Database generated .....")
                         print("-------------------------------")
+                        project_path = "outputs/"+yml_data["info"]["title"]
+
+                        #### GENERATE SQL FILE  ###
+                        file_sql = open(project_path+"/sql_generate.sql", "a")
+                        file_sql.write(query)
+                        file_sql.close()
+                        print("-------------------------------")
+                        print("###  sql_generated.sql #### ")
+                        print("-------------------------------")
                     except Exception as e:
                         print(e)
          
@@ -199,7 +208,7 @@ with open(file_yaml) as stream:
                             f.close()
                             newdata = filedata.replace("@@controller_name@@",model)
                             newdata = newdata.replace("@@controller_name_capitalize@@",modelC)
-                            newdata = newdata.replace("@@view_name@@",model+"_view.php")
+                            newdata = newdata.replace("@@view_name@@",model+"_view")
                             f = open(project_path+"/application/controllers/"+modelC+".php",'w')
                             f.write(newdata)
                             f.close()
@@ -252,15 +261,7 @@ with open(file_yaml) as stream:
                 ###
                 ##
                 #
-                project_path = "outputs/"+yml_data["info"]["title"]
-
-                #### GENERATE SQL FILE  ###
-                file_sql = open(project_path+"/sql_generate.sql", "a")
-                file_sql.write(query)
-                file_sql.close()
-                print("-------------------------------")
-                print("###  sql_generated.sql #### ")
-                print("-------------------------------")
+                
 
                 ##WRITING THE SWAGGER FILE FOR ACCESS##
                 #### SWAGGER GENERATOR ####

@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  title: ProiectAnunturi
+  description: ProiectTest
+  version: 1.0.1
+models:
+  anunturi:
+    id_anunturi:
+      type: int
+      autoincrement: True
+      primary_key: True
+      nullable: False
+    titlu_anunt:
+      type: string
+      nullable: False
+      default: "'Anunt fara titltu'"
+    data_anunt:
+      type: string
+      nullable: True
+    text_anunt:
+      type: string
+      nullable: False
+    id_user:
+      type: int
+      nullable: False
+    active:
+      type: int
+      nullable: False
+      default: "1"
+  utilizatori:
+    id_utilizatori:
+      type: int
+      autoincrement: True
+      primary_key: True
+      nullable: False
+    nume_utilizator:
+      type: string
+      nullable: False
+    prenume_utilizator:
+      type: string
+      nullable: False
+    mail_utilizator:
+      type: string
+      nullable: False
+    parola_utilizator:
+      type: string
+      nullable: False
+  comentarii_anunt:
+      id_comentarii_anunt:
+        type: int
+        nullable: False
+        autoincrement: True
+        primary_key: True
+      id_user:
+        type: int
+        nullable: False
+      text_comentariu:
+        type: string
+        nullable: False
+      data_comentariu:
+        type: string
+        nullable: False
